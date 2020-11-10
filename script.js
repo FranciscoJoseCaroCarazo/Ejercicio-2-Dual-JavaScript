@@ -12,16 +12,32 @@ window.addEventListener("load", onLoad);
 
 function onLoad() {
   lista();
+  delLista();
   addLista();
-  console.log();
 }
 
 function lista() {
-  var spanSelecionado = document.querySelector(".selected");
-  var spanNode = spanSelecionado.parentNode;
-  var elemento2 = spanNode.previousSibling.previousSibling;
+  //Obtenemos la lista de elementos
+  let selector = document.querySelector(".selected").parentElement.parentElement
+    .childNodes;
 
-  console.log(elemento2);
+  //Recorremos la lista
+  let contador = 1;
+  for (var i = 0; i < selector.length; i++) {
+    //Si encuentra un elemento de la lista con un elemento HTML en su interior mete todo el contenido de ese elemento ene una variable y la mete en la misma posicion que le corresponde el la lista, le crea la clase correspondiente a su posicion y pasa al siguiente. Así hasta completar la lista entera
+    if (selector[i] instanceof HTMLLIElement) {
+      var li = selector[i].children;
+      li[0].classList.add("element-" + contador);
+      contador++;
+    }
+  }
+}
+
+function delLista() {
+  //Obtenemos toda la lista y borramos las posiciones donde se encuantran los elementos pares.
+  var listaCompleta = document.querySelectorAll("Li");
+  listaCompleta[1].remove();
+  listaCompleta[3].remove();
 }
 
 function addLista() {
